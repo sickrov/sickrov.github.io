@@ -8,12 +8,12 @@ Security tips for Kubernetes
 ## PART 1 - ARCHITECTURE
 
 ### What does Kubernetes do?
-- Allows to run container/s in a container engine.
-- Schedule allows containers mission efficient.
-- Keep containers alive.
-- Allows container communications.
-- Allows deployment techniques.
-- Handle volumes of information.
+* Allows to run container/s in a container engine.
+* Schedule allows containers mission efficient.
+* Keep containers alive.
+* Allows container communications.
+* Allows deployment techniques.
+* Handle volumes of information.
 
 ### Architecture:
 ![](.//media/Screenshot-68.jpg)
