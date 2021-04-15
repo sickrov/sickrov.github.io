@@ -332,9 +332,9 @@ When the attack achieve discover the kernel version he could run exploiting tech
 
 For secure sandboxes:
 - gVisor:
-(<https://github.com/google/gvisor>)
+<https://github.com/google/gvisor>
 - Katakontainers: 
-(<https://katacontainers.io/>)
+<https://katacontainers.io/>
 
 
 ## Vulnerabilities - OS
