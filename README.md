@@ -220,15 +220,13 @@ If the identity provider is empty of the default value = {} so the secrets are i
 (<https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/>)
 
 #### Encryption types
-| Name      | Encryption                                                                                                                                                                                                                       | Strength                          | Speed   | Key Length         | Other Considerations                                                                                                                                                                                               |
-|-----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------|---------|--------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| identity  | None                                                                                                                                                                                                                             | N/A                               | N/A     | N/A                | Resources written as-is without encryption. When set as the first provider, the resource will be decrypted as new values are written.                                                                              |
-| aescbc    | AES-CBC with PKCS#7 padding                                                                                                                                                                                                      | Strongest                         | Fast    | 32-byte            | The recommended choice for encryption at rest but may be slightly slower than secretbox.                                                                                                                           |
-| secretbox | XSalsa20 and Poly1305                                                                                                                                                                                                            | Strong                            | Faster  | 32-byte            | A newer standard and may not be considered acceptable in environments that require high levels of review.                                                                                                          |
-| aesgcm    | AES-GCM with random nonce                                                                                                                                                                                                        | Must be rotated every 200k writes | Fastest | 16, 24, or 32-byte | Is not recommended for use except when an automated key rotation scheme is implemented.                                                                                                                            |
-| kms       | Uses envelope encryption scheme: Data is encrypted by data encryption keys (DEKs) using AES-CBC with PKCS#7 padding, DEKs are encrypted by key encryption keys (KEKs) according to configuration in Key Management Service (KMS) | Strongest                         | Fast    | 32-bytes           | The recommended choice for using a third party tool for key management. Simplifies key rotation, with a new DEK generated for each encryption, and KEK rotation controlled by the user. Configure the KMS provider |
-
-
+| Name | Encryption | Strength | Speed | Key Length | Other Considerations |
+|-|-|-|-|-|-|
+| identity | None | N/A | N/A | N/A | Resources written as-is without encryption. When set as the first provider, the resource will be decrypted as new values are written. |
+| aescbc | AES-CBC with PKCS#7 padding | Strongest | Fast | 32-byte | The recommended choice for encryption at rest but may be slightly slower than secretbox. |
+| secretbox | XSalsa20 and Poly1305 | Strong | Faster | 32-byte | A newer standard and may not be considered acceptable in environments that require high levels of review. |
+| aesgcm | AES-GCM with random nonce | Must be rotated every 200k writes | Fastest | 16, 24, or 32-byte | Is not recommended for use except when an automated key rotation scheme is implemented. |
+| kms | Uses envelope encryption scheme: Data is encrypted by data encryption keys (DEKs) using AES-CBC with PKCS#7 padding, DEKs are encrypted by key encryption keys (KEKs) according to configuration in Key Management Service (KMS) | Strongest | Fast | 32-bytes | The recommended choice for using a third party tool for key management. Simplifies key rotation, with a new DEK generated for each encryption, and KEK rotation controlled by the user. Configure the KMS provider |
 
 The secrets will be encrypted with the above algorithms and encoded by base64.
 ```
@@ -646,10 +644,10 @@ Be aware of the certificates because there is no way to invalidate them, you hav
 - Remove all RBAC access
 
 #### ServiceAccounts:
- - Accounts for "machines". Is managed by the kubernetes API
- - Namespaced
- - Can interact with the Kubernetes API
- - The "Default" SA is in every namespaced used by the PODS.
+- Accounts for "machines". Is managed by the kubernetes API
+- Namespaced
+- Can interact with the Kubernetes API
+- The "Default" SA is in every namespaced used by the PODS.
  
 
 ### 3.3 KUBERNETES API HARDENING
@@ -661,12 +659,12 @@ API requests are always assigned to a User, ServiceAccount or Anonymous request.
 User or K8s ServiceAccount --> Authentication --> Authorization --> Admission Control.
 
 TIPS:
-- Close ports
-- Avoid Anonymous access
-- NodeRestriction; No access from specific nodes to the API
-  - (<https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#noderestriction>)
-  - Basicaly prevents kubelets from adding/removing/updating labels with a node-restriction.kubernetes.io/ prefix. This label prefix is reserved for administrators to label their Node objects for workload isolation purposes, and kubelets will not be allowed to modify labels with that prefix.
-  - And also, allows kubelets to add/remove/update these labels and label prefixes
+- Close ports.
+- Avoid Anonymous access.
+- NodeRestriction; No access from specific nodes to the API.
+    - (<https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#noderestriction>)
+    - Basicaly prevents kubelets from adding/removing/updating labels with a node-restriction.kubernetes.io/ prefix. This label prefix is reserved for administrators to label their Node objects for workload isolation purposes, and kubelets will not be allowed to modify labels with that prefix.
+    - And also, allows kubelets to add/remove/update these labels and label prefixes.
 - Ensure with labels the secure workload isolation.
 - Avoid specific pods from API access.
 - Avoid ApiServer exposure to the internet.
@@ -689,11 +687,11 @@ Each 3 months there is a new minor release
 ##### Best way to update or upgrade a Kubernetes Cluster:
 (<https://kubernetes.io/docs/tasks/administer-cluster/cluster-upgrade/>)
 - Upgrade the Master Node components following this sequence:
-  - etcd (all instances)
-  - kube-apiserver (all control plane hosts)
-  - kube-controller-manager
-  - kube-scheduler
-  - cloud controller manager, if you use one.
+    - etcd (all instances)
+    - kube-apiserver (all control plane hosts)
+    - kube-controller-manager
+    - kube-scheduler
+    - cloud controller manager, if you use one.
 
 - Upgrade the Worker Node components such as: kube-proxy, kubelet.
 
