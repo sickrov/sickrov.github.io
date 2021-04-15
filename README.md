@@ -72,7 +72,7 @@ Secret types:
 
 #### How secrets works:
 ![](.//media/Screenshot-164.jpg)
-(<https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-files-from-a-pod>)
+<https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-files-from-a-pod>
 
 Create a secret, commands:
 ```
@@ -170,7 +170,7 @@ kubectl -f <podName.yaml> replace --force
 ```
 
 More info: 
-(<https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-environment-variables>)
+<https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-environment-variables>
 
 ### Discover secrets in docker:
 
@@ -217,7 +217,7 @@ ETCDCTL_API=3 etcdctl --cert /etc/kubernetes/pki/apiserver-etcd-client.crt --key
 ## Adding encryption to the ETCD
 So, by default all the secrets are in plain text unless you apply an encription layer:
 If the identity provider is empty of the default value = {} so the secrets are in plain text.
-(<https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/>)
+<https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/>
 
 #### Encryption types
 | Name | Encryption | Strength | Speed | Key Length | Other Considerations |
@@ -242,7 +242,7 @@ You create a yaml file with the configuration.
 ```
 vi <configFile.yaml>
 ```
-You can copy the content of (<https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/>)
+You can copy the content of <https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/>
 
 ```
 apiVersion: apiserver.config.k8s.io/v1
@@ -303,9 +303,9 @@ kubectl get secret test-secret -oyaml
 Do not forget to delete de secrets and re-create them again in order to apply the encryption layer.
 ### Final tips:
 - Try not to keep secrets in the FS, get them from other places.
-- Check out (<https://www.vaultproject.io/>) for add more protection to your secrets.
-- (<https://kubernetes.io/docs/concepts/configuration/secret/#risks>)
-- (<https://docs.cyberark.com/Product-Doc/OnlineHelp/AAM-DAP/11.2/en/Content/Integrations/Kubernetes_deployApplicationsConjur-k8s-Secrets.htm>)
+- Check out <https://www.vaultproject.io/> for add more protection to your secrets.
+- <https://kubernetes.io/docs/concepts/configuration/secret/#risks>
+- <https://docs.cyberark.com/Product-Doc/OnlineHelp/AAM-DAP/11.2/en/Content/Integrations/Kubernetes_deployApplicationsConjur-k8s-Secrets.htm>
 
 
 ## Vulnerabilities - Container runtime sandboxes
@@ -344,7 +344,7 @@ Is mandatory to keep in mind to define privilege and access control for containe
 - Linux.
 
 More info at:
-(<https://kubernetes.io/docs/tasks/configure-pod-container/security-context/>)
+<https://kubernetes.io/docs/tasks/configure-pod-container/security-context/>
 
 ### userID and groupID
 ```
@@ -406,7 +406,7 @@ kubectl -f <podName>.yaml create
 ### Modify PodSecurityPolicy
 Pod security policies controls the security policies about how a pod has to run.
 More info at:
-(<https://kubernetes.io/docs/concepts/policy/pod-security-policy/>)
+<https://kubernetes.io/docs/concepts/policy/pod-security-policy/>
 
 Edit the kube-apiserver.yaml file:
 ```
@@ -425,7 +425,7 @@ Mutual authentication, two way, pod to pod
 ![](.//media/Screenshot-165.jpg)
 
 More info at:
-(<https://kubernetes.io/docs/tasks/configure-pod-container/security-context/>)
+<https://kubernetes.io/docs/tasks/configure-pod-container/security-context/>
 
 ### Create a sidecar proxy app
 Create your <appName>.yaml
@@ -464,13 +464,13 @@ See the logs of the proxy:
 kubectl logs app -C proxy
 ```
 More info at:
-(<https://kubernetes.io/docs/tasks/configure-pod-container/security-context/>)
+<https://kubernetes.io/docs/tasks/configure-pod-container/security-context/>
   
   
 ## PART 3 - HARDENING.
 
 ### 3.1 CLUSTER HARDENING -  RBAC
-(<https://kubernetes.io/docs/reference/access-authn-authz/rbac/>)
+<https://kubernetes.io/docs/reference/access-authn-authz/rbac/>
 **RBAC** = Role-based access control (RBAC) is a method of regulating access to computer or network resources based on the roles of individual users within your organization.
 RBAC authorization uses the rbac.authorization.k8s.io API group to drive authorization decisions, allowing you to dynamically configure policies through the Kubernetes API.
 
@@ -488,7 +488,7 @@ RBAC functions:
 Principle of Least Privilege is meaning of only access to data or information when is necessary for a legitimate purpose.
 
 #### Types of resources:
-(<https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/>)
+<https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/>
 ##### Concept of namespaces:
 Kubernetes supports multiple virtual clusters backed by the same physical cluster. These virtual clusters are called **namespaces**. These are intended for use in environments with many users spread across multiple teams, or projects. For clusters with a few to tens of users, you should not need to create or think about namespaces at all. Start using namespaces when you need the features they provide.
 
@@ -628,7 +628,7 @@ So be aware and test always your roles and permissions and specify what is ALLOW
 
 ### 3.2 SERVICE ACCOUNTS HARDENING
 #### ACCOUNTS
-(<https://kubernetes.io/docs/reference/access-authn-authz/service-accounts-admin/>)
+<https://kubernetes.io/docs/reference/access-authn-authz/service-accounts-admin/>
 Users: 
 - Accounts for "persons" who hold a certificate integrated with the Kubernetes Identity Management of cloud providers.
 - There is no Kubernetes user resource.
@@ -652,7 +652,7 @@ Be aware of the certificates because there is no way to invalidate them, you hav
 ### 3.3 KUBERNETES API HARDENING
 
 API requests are always assigned to a User, ServiceAccount or Anonymous request. After the request must be authenticated.
-(<https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet-authentication-authorization/>)
+<https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet-authentication-authorization/>
 
 ##### Request process:
 User or K8s ServiceAccount --> Authentication --> Authorization --> Admission Control.
@@ -661,7 +661,7 @@ TIPS:
 - Close ports.
 - Avoid Anonymous access.
 - NodeRestriction; No access from specific nodes to the API.
-    - (<https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#noderestriction>)
+    - <https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#noderestriction>
     - Basicaly prevents kubelets from adding/removing/updating labels with a node-restriction.kubernetes.io/ prefix. This label prefix is reserved for administrators to label their Node objects for workload isolation purposes, and kubelets will not be allowed to modify labels with that prefix.
     - And also, allows kubelets to add/remove/update these labels and label prefixes.
 - Ensure with labels the secure workload isolation.
@@ -679,12 +679,12 @@ Upgrade it frecuently, you will receive:
 
 Release cycles:
 Each 3 months there is a new minor release
-(<https://kubernetes.io/docs/setup/release/version-skew-policy/>)
+<https://kubernetes.io/docs/setup/release/version-skew-policy/>
 1.20.3 = 1(Major).20(Minor).3(patch)
 
   
 ##### Best way to update or upgrade a Kubernetes Cluster:
-(<https://kubernetes.io/docs/tasks/administer-cluster/cluster-upgrade/>)
+<https://kubernetes.io/docs/tasks/administer-cluster/cluster-upgrade/>
 - Upgrade the Master Node components following this sequence:
     - etcd (all instances).
     - kube-apiserver (all control plane hosts).
