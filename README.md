@@ -34,14 +34,14 @@ Security tips for Kubernetes
 
 ### PKI infrastructure - Certificate Authority CA:
 ![](.//media/Screenshot-66.jpg)
-- CA is the trusted root for all certificates inside the cluster
+- CA is the trusted root for all certificates inside the cluster.
 - Allows components to validate to each other.
-- All cluster certificates are signed by the CA
+- All cluster certificates are signed by the CA.
 - ETCd has its own certificate.
 - types:
-    - apiserver cert
-    - kubelet cert
-    - scheduler cert
+    - apiserver cert.
+    - kubelet cert.
+    - scheduler cert.
 
 
 
