@@ -27,7 +27,7 @@ Security tips for Kubernetes
 - **Scheduler**: Scheduling refers to making sure that Pods are matched to Nodes so that Kubelet can run them Watches for newly Pods that have no Node assigned. This component assign pods with nodes
 - **etcd**: Data storage, persistent, consistent and distributed. Is Kubernetes's database and the key value storage where it keeps the complete state of the clusters.
 - **Kube Controller manager**: check several resources, for example the replica sets or the deployments in order to check if for example we have the correct number of pods or nodes running. It controls replication, tokens and account services to the API.
-- Cloud controller manager: Is the specific controller for flow controls and applications, i.e: if you have clusters in aws or openstack.
+- **Cloud controller manager**: Is the specific controller for flow controls and applications, i.e: if you have clusters in aws or openstack.
 
 ### How pods communicate with each other.
 ![](.//media/Screenshot-67.jpg)
@@ -59,16 +59,16 @@ Secrets can be things like:
 - Database connection code, strings...
 
 Secret types:
- Builtin Type                        | Usage                                 
--------------------------------------|---------------------------------------
- Opaque                              | arbitrary user-defined data           
- kubernetes.io/service-account-token | service account token                 
- kubernetes.io/dockercfg             | serialized ~/.dockercfg file          
- kubernetes.io/dockerconfigjson      | serialized ~/.docker/config.json file 
- kubernetes.io/basic-auth            | credentials for basic authentication  
- kubernetes.io/ssh-auth              | credentials for SSH authentication    
- kubernetes.io/tls                   | data for a TLS client or server       
- bootstrap.kubernetes.io/token       | bootstrap token data                  
+|Builtin Type                        | Usage                                 |
+|------------------------------------|---------------------------------------|
+|Opaque                              | arbitrary user-defined data           |
+|kubernetes.io/service-account-token | service account token                 |
+|kubernetes.io/dockercfg             | serialized ~/.dockercfg file          |
+|kubernetes.io/dockerconfigjson      | serialized ~/.docker/config.json file |
+|kubernetes.io/basic-auth            | credentials for basic authentication  |
+|kubernetes.io/ssh-auth              | credentials for SSH authentication    |
+|kubernetes.io/tls                   | data for a TLS client or server       |
+|bootstrap.kubernetes.io/token       | bootstrap token data                  |
 
 ### How secrets works:
 ![](.//media/Screenshot-164.jpg)
@@ -246,7 +246,6 @@ vi <configFile.yaml>
 ```
 You can copy the content of (<https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/>)
 
-
 ```
 apiVersion: apiserver.config.k8s.io/v1
 kind: EncryptionConfiguration
@@ -297,7 +296,9 @@ ETCDCTL_API=3 etcdctl get /registry/secrets/default/secret1 [...] | hexdump -C
 kubectl create secret generic test-secret --from-literal='username=my-app' --from-literal='password=45tRf$we34rR'
 ```
 
-With root access: # kubectl get secret
+With root access: 
+```# kubectl get secret
+```
 ```
 kubectl get secret test-secret -oyaml
 ```
@@ -473,7 +474,7 @@ More info at:
 
 ### 3.1 CLUSTER HARDENING -  RBAC
 (<https://kubernetes.io/docs/reference/access-authn-authz/rbac/>)
-RBAC = Role-based access control (RBAC) is a method of regulating access to computer or network resources based on the roles of individual users within your organization.
+**RBAC** = Role-based access control (RBAC) is a method of regulating access to computer or network resources based on the roles of individual users within your organization.
 RBAC authorization uses the rbac.authorization.k8s.io API group to drive authorization decisions, allowing you to dynamically configure policies through the Kubernetes API.
 
 To enable RBAC, start the API server with the --authorization-mode flag set to a comma-separated list that includes RBAC; for example:
@@ -492,7 +493,7 @@ Principle of Least Privilege is meaning of only access to data or information wh
 #### Types of resources:
 (<https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/>)
 ##### Concept of namespaces:
-Kubernetes supports multiple virtual clusters backed by the same physical cluster. These virtual clusters are called namespaces. These are intended for use in environments with many users spread across multiple teams, or projects. For clusters with a few to tens of users, you should not need to create or think about namespaces at all. Start using namespaces when you need the features they provide.
+Kubernetes supports multiple virtual clusters backed by the same physical cluster. These virtual clusters are called **namespaces**. These are intended for use in environments with many users spread across multiple teams, or projects. For clusters with a few to tens of users, you should not need to create or think about namespaces at all. Start using namespaces when you need the features they provide.
 
 Namespaces provide a scope for names. Names of resources need to be unique within a namespace, but not across namespaces. Namespaces cannot be nested inside one another and each Kubernetes resource can only be in one namespace.
 
