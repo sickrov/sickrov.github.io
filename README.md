@@ -295,9 +295,8 @@ kubectl create secret generic test-secret --from-literal='username=my-app' --fro
 ```
 
 With root access: 
-```# kubectl get secret
 ```
-```
+# kubectl get secret
 kubectl get secret test-secret -oyaml
 ```
 
