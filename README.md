@@ -17,16 +17,16 @@ Security tips for Kubernetes
 
 ### Architecture:
 ![](.//media/Screenshot-68.jpg)
-- Node: operating system with pod or pods.
--- Pod: Wrapper around a container or multiple containers and it contains an app.
--- Kubelet: Primary node agent. The component that establishes communication between node and kubectl, and only can run pods (through api server).The kubelet doesn't manage containers which were not created by Kubernetes.
--- Kube-proxy: is the service in charge of the communications (services) between the apiserver and the node. The base is an IPtables for nodes. Most experienced users could install other kube-proxies from other vendors.
--- Sidecar container: Sidecar containers are the containers that should run along with the main container in the pod. This sidecar pattern extends and enhances the functionality of current containers without changing it. Nowadays, We know that we use container technology to wrap all the dependencies for the application to run anywhere. A container does only one thing and does that thing very well.
+- **Node**: operating system with pod or pods.
+-- **Pod**: Wrapper around a container or multiple containers and it contains an app.
+-- **Kubelet**: Primary node agent. The component that establishes communication between node and kubectl, and only can run pods (through api server).The kubelet doesn't manage containers which were not created by Kubernetes.
+-- **Kube-proxy**: is the service in charge of the communications (services) between the apiserver and the node. The base is an IPtables for nodes. Most experienced users could install other kube-proxies from other vendors.
+-- **Sidecar container**: Sidecar containers are the containers that should run along with the main container in the pod. This sidecar pattern extends and enhances the functionality of current containers without changing it. Nowadays, We know that we use container technology to wrap all the dependencies for the application to run anywhere. A container does only one thing and does that thing very well.
 
-- Kubectl: Kubernetes’s CLI, allows you to manage and deploy containers. You can inspect the cluster's resources. Communications with API server
-- Scheduler: Scheduling refers to making sure that Pods are matched to Nodes so that Kubelet can run them Watches for newly Pods that have no Node assigned. This component assign pods with nodes
-- etcd: Data storage, persistent, consistent and distributed. Is Kubernetes's database and the key value storage where it keeps the complete state of the clusters.
-- Kube Controller manager: check several resources, for example the replica sets or the deployments in order to check if for example we have the correct number of pods or nodes running. It controls replication, tokens and account services to the API.
+- **Kubectl**: Kubernetes’s CLI, allows you to manage and deploy containers. You can inspect the cluster's resources. Communications with API server
+- **Scheduler**: Scheduling refers to making sure that Pods are matched to Nodes so that Kubelet can run them Watches for newly Pods that have no Node assigned. This component assign pods with nodes
+- **etcd**: Data storage, persistent, consistent and distributed. Is Kubernetes's database and the key value storage where it keeps the complete state of the clusters.
+- **Kube Controller manager**: check several resources, for example the replica sets or the deployments in order to check if for example we have the correct number of pods or nodes running. It controls replication, tokens and account services to the API.
 - Cloud controller manager: Is the specific controller for flow controls and applications, i.e: if you have clusters in aws or openstack.
 
 ### How pods communicate with each other.
@@ -39,9 +39,9 @@ Security tips for Kubernetes
 - All cluster certificates are signed by the CA
 - ETCd has its own certificate.
 - types:
---apiserver cert
---kubelet cert
---scheduler cert
+-- apiserver cert
+-- kubelet cert
+-- scheduler cert
 
 
 
@@ -59,16 +59,16 @@ Secrets can be things like:
 - Database connection code, strings...
 
 Secret types:
-| Builtin Type                        | Usage                                 |
-|-------------------------------------|---------------------------------------|
-| Opaque                              | arbitrary user-defined data           |
-| kubernetes.io/service-account-token | service account token                 |
-| kubernetes.io/dockercfg             | serialized ~/.dockercfg file          |
-| kubernetes.io/dockerconfigjson      | serialized ~/.docker/config.json file |
-| kubernetes.io/basic-auth            | credentials for basic authentication  |
-| kubernetes.io/ssh-auth              | credentials for SSH authentication    |
-| kubernetes.io/tls                   | data for a TLS client or server       |
-| bootstrap.kubernetes.io/token       | bootstrap token data                  |
+ Builtin Type                        | Usage                                 
+-------------------------------------|---------------------------------------
+ Opaque                              | arbitrary user-defined data           
+ kubernetes.io/service-account-token | service account token                 
+ kubernetes.io/dockercfg             | serialized ~/.dockercfg file          
+ kubernetes.io/dockerconfigjson      | serialized ~/.docker/config.json file 
+ kubernetes.io/basic-auth            | credentials for basic authentication  
+ kubernetes.io/ssh-auth              | credentials for SSH authentication    
+ kubernetes.io/tls                   | data for a TLS client or server       
+ bootstrap.kubernetes.io/token       | bootstrap token data                  
 
 ### How secrets works:
 ![](.//media/Screenshot-164.jpg)
