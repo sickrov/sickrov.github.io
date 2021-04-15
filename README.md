@@ -49,14 +49,14 @@ Security tips for Kubernetes
 ## PART 2 - VULNERABILITIES and some fixes.
 
 ### Vulnerabilities - kubernetes secrets
-A Secret is an object that contains a small amount of sensitive data such as a password, a token, or a key. Such information might otherwise be put in a Pod specification or in an image. Users can create Secrets and the system also creates some Secrets.The name of a Secret object must be a valid DNS subdomain name.
+A Secret is an object that contains a small amount of sensitive data such as a password, a token or a key. Such information might otherwise be put in a Pod specification or in an image. Users can create Secrets and the system also creates some Secrets.The name of a Secret object must be a valid **DNS subdomain name**.
 
 Secrets can be things like:
-- API, SSH Keys
-- OAuth tokers
-- Credentials, Passwords (plain text or b64 + encryption)
-- Information or comments
-- Database connection code, strings...
+- API, SSH Keys.
+- OAuth tokens.
+- Credentials, Passwords (plain text or b64 + encryption).
+- Information or comments.
+- Database connection code, strings... .
 
 Secret types:
 |Builtin Type                        | Usage                                 |
@@ -70,7 +70,7 @@ Secret types:
 |kubernetes.io/tls                   | data for a TLS client or server       |
 |bootstrap.kubernetes.io/token       | bootstrap token data                  |
 
-### How secrets works:
+#### How secrets works:
 ![](.//media/Screenshot-164.jpg)
 (<https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-files-from-a-pod>)
 
@@ -184,11 +184,11 @@ docker inspect <docker_id>
 ```
 
 Check env (environment variable section) for secrets and you will see: 
-- Passwords
-- Ip's
-- Ports
-- Paths
-- Others...
+- Passwords.
+- Ip's.
+- Ports.
+- Paths.
+- Others... .
 
 If you want to copy:
 ```
@@ -340,9 +340,9 @@ For secure sandboxes:
 
 ## Vulnerabilities - OS
 Is mandatory to keep in mind to define privilege and access control for container / pod:
-- userID's and groupID's
+- userID's and groupID's.
 - Privileged or unpriviliged escalation runs.
-- Linux
+- Linux.
 
 More info at:
 (<https://kubernetes.io/docs/tasks/configure-pod-container/security-context/>)
@@ -409,7 +409,7 @@ Pod security policies controls the security policies about how a pod has to run.
 More info at:
 (<https://kubernetes.io/docs/concepts/policy/pod-security-policy/>)
 
-Edit the kube-apiserver.yaml file
+Edit the kube-apiserver.yaml file:
 ```
 vi /etc/kubernetes/manifests/kube-apiserver.yaml
 ```
@@ -556,9 +556,9 @@ rules:
 ##### ClusterRole:
 A ClusterRole can be used to grant the same permissions as a Role. Because ClusterRoles are cluster-scoped, you can also use them to grant access to:
 
-- cluster-scoped resources (like nodes)
-- non-resource endpoints (like /healthz)
-- namespaced resources (like Pods), across all namespaces
+- cluster-scoped resources (like nodes).
+- non-resource endpoints (like /healthz).
+- namespaced resources (like Pods), across all namespaces.
 
 For example: you can use a ClusterRole to allow a particular user to run:
 ```
@@ -644,9 +644,9 @@ Be aware of the certificates because there is no way to invalidate them, you hav
 - Remove all RBAC access
 
 #### ServiceAccounts:
-- Accounts for "machines". Is managed by the kubernetes API
-- Namespaced
-- Can interact with the Kubernetes API
+- Accounts for "machines". Is managed by the kubernetes API.
+- Namespaced.
+- Can interact with the Kubernetes API.
 - The "Default" SA is in every namespaced used by the PODS.
  
 
@@ -687,10 +687,10 @@ Each 3 months there is a new minor release
 ##### Best way to update or upgrade a Kubernetes Cluster:
 (<https://kubernetes.io/docs/tasks/administer-cluster/cluster-upgrade/>)
 - Upgrade the Master Node components following this sequence:
-    - etcd (all instances)
-    - kube-apiserver (all control plane hosts)
-    - kube-controller-manager
-    - kube-scheduler
+    - etcd (all instances).
+    - kube-apiserver (all control plane hosts).
+    - kube-controller-manager.
+    - kube-scheduler.
     - cloud controller manager, if you use one.
 
 - Upgrade the Worker Node components such as: kube-proxy, kubelet.
