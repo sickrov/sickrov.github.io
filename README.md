@@ -54,7 +54,7 @@ A Secret is an object that contains a small amount of sensitive data such as a p
 Secrets can be things like:
 - API, SSH Keys
 - OAuth tokers
-- Credentials, Passwords (plain text || b64 + encryption)
+- Credentials, Passwords (plain text or b64 + encryption)
 - Information or comments
 - Database connection code, strings...
 
