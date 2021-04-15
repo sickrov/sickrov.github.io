@@ -221,7 +221,7 @@ If the identity provider is empty of the default value = {} so the secrets are i
 
 #### Encryption types
 | Name | Encryption | Strength | Speed | Key| 
-| ------ | ------ | ------ | ------ | ------ |
+| :--------- | --------- | :---------: | :--------- :| :---------: |
 | identity | None | N/A | N/A | N/A | 
 | aescbc | AES-CBC with PKCS#7 padding | Strongest | Fast | 32-byte | 
 | secretbox | XSalsa20 and Poly1305 | Strong | Faster | 32-byte | 
