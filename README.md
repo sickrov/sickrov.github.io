@@ -59,16 +59,16 @@ Secrets can be things like:
 - Database connection code, strings...
 
 Secret types:
-|Builtin Type|  Usage|
-|-|-|
-|Opaque|  arbitrary user-defined data|
-|kubernetes.io/service-account-token| service account token
-|kubernetes.io/dockercfg| serialized ~/.dockercfg file
-|kubernetes.io/dockerconfigjson|  serialized ~/.docker/config.json file
-|kubernetes.io/basic-auth|  credentials for basic authentication
-|kubernetes.io/ssh-auth|  credentials for SSH authentication
-|kubernetes.io/tls| data for a TLS client or server
-|bootstrap.kubernetes.io/token| bootstrap token data
+| Builtin Type                        | Usage                                 |
+|-------------------------------------|---------------------------------------|
+| Opaque                              | arbitrary user-defined data           |
+| kubernetes.io/service-account-token | service account token                 |
+| kubernetes.io/dockercfg             | serialized ~/.dockercfg file          |
+| kubernetes.io/dockerconfigjson      | serialized ~/.docker/config.json file |
+| kubernetes.io/basic-auth            | credentials for basic authentication  |
+| kubernetes.io/ssh-auth              | credentials for SSH authentication    |
+| kubernetes.io/tls                   | data for a TLS client or server       |
+| bootstrap.kubernetes.io/token       | bootstrap token data                  |
 
 ### How secrets works:
 ![](.//media/Screenshot-164.jpg)
