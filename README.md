@@ -18,10 +18,10 @@ Security tips for Kubernetes
 ### Architecture:
 ![](.//media/Screenshot-68.jpg)
 - **Node**: operating system with pod or pods.
-  - **Pod**: Wrapper around a container or multiple containers and it contains an app.
-  - **Kubelet**: Primary node agent. The component that establishes communication between node and kubectl, and only can run pods (through api server).The kubelet doesn't manage containers which were not created by Kubernetes.
-  - **Kube-proxy**: is the service in charge of the communications (services) between the apiserver and the node. The base is an IPtables for nodes. Most experienced users could install other kube-proxies from other vendors.
-  - **Sidecar container**: Sidecar containers are the containers that should run along with the main container in the pod. This sidecar pattern extends and enhances the functionality of current containers without changing it. Nowadays, We know that we use container technology to wrap all the dependencies for the application to run anywhere. A container does only one thing and does that thing very well.
+    - **Pod**: Wrapper around a container or multiple containers and it contains an app.
+    - **Kubelet**: Primary node agent. The component that establishes communication between node and kubectl, and only can run pods (through api server).The kubelet doesn't manage containers which were not created by Kubernetes.
+    - **Kube-proxy**: is the service in charge of the communications (services) between the apiserver and the node. The base is an IPtables for nodes. Most experienced users could install other kube-proxies from other vendors.
+    - **Sidecar container**: Sidecar containers are the containers that should run along with the main container in the pod. This sidecar pattern extends and enhances the functionality of current containers without changing it. Nowadays, We know that we use container technology to wrap all the dependencies for the application to run anywhere. A container does only one thing and does that thing very well.
 
 - **Kubectl**: Kubernetes’s CLI, allows you to manage and deploy containers. You can inspect the cluster's resources. Communications with API server
 - **Scheduler**: Scheduling refers to making sure that Pods are matched to Nodes so that Kubelet can run them Watches for newly Pods that have no Node assigned. This component assign pods with nodes
@@ -39,9 +39,9 @@ Security tips for Kubernetes
 - All cluster certificates are signed by the CA
 - ETCd has its own certificate.
 - types:
--- apiserver cert
--- kubelet cert
--- scheduler cert
+    - apiserver cert
+    - kubelet cert
+    - scheduler cert
 
 
 
