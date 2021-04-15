@@ -220,7 +220,7 @@ If the identity provider is empty of the default value = {} so the secrets are i
 (<https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/>)
 
 #### Encryption types
-| Name | Encryption | Strength | Speed | Key| 
+| Name | Encryption | Strength | Speed | Key | 
 | :--------- | --------- | :---------: | :--------- :| :---------: |
 | identity | None | N/A | N/A | N/A | 
 | aescbc | AES-CBC with PKCS#7 padding | Strongest | Fast | 32-byte | 
