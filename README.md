@@ -60,7 +60,7 @@ Secrets can be things like:
 
 Secret types:
 |Builtin Type                        | Usage                                 |
-|------------------------------------|---------------------------------------|
+| ------- | -------- |
 |Opaque                              | arbitrary user-defined data           |
 |kubernetes.io/service-account-token | service account token                 |
 |kubernetes.io/dockercfg             | serialized ~/.dockercfg file          |
@@ -221,7 +221,7 @@ If the identity provider is empty with the default value = {} so the secrets are
 
 #### Encryption types
 | Name | Encryption | Strength | Speed | Key Length | Other Considerations |
-|-|-|-|-|-|-|
+| ------- | ------- | ------- | ------- | ------- | ------- |
 | identity | None | N/A | N/A | N/A | Resources written as-is without encryption. When set as the first provider, the resource will be decrypted as new values are written. |
 | aescbc | AES-CBC with PKCS#7 padding | Strongest | Fast | 32-byte | The recommended choice for encryption at rest but may be slightly slower than secretbox. |
 | secretbox | XSalsa20 and Poly1305 | Strong | Faster | 32-byte | A newer standard and may not be considered acceptable in environments that require high levels of review. |
