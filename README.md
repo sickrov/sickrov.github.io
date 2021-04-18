@@ -8,7 +8,7 @@ Security tips for Kubernetes
 ## PART 1 - ARCHITECTURE
 
 ### What does Kubernetes do?
-* Allows to run container/s in a container engine.
+* Allows running container/s in a container engine.
 * Schedule allows containers mission efficient.
 * Keep containers alive.
 * Allows container communications.
@@ -19,15 +19,15 @@ Security tips for Kubernetes
 ![](.//media/Screenshot-68.jpg)
 - **Node**: operating system with pod or pods.
     - **Pod**: Wrapper around a container or multiple containers and it contains an app.
-    - **Kubelet**: Primary node agent. The component that establishes communication between node and kubectl, and only can run pods (through api server).The kubelet doesn't manage containers which were not created by Kubernetes.
+    - **Kubelet**: Primary node agent. The component that establishes communication between node and kubectl, and only can run pods (through API server). The kubelet doesn’t manage containers that were not created by Kubernetes.
     - **Kube-proxy**: is the service in charge of the communications (services) between the apiserver and the node. The base is an IPtables for nodes. Most experienced users could install other kube-proxies from other vendors.
-    - **Sidecar container**: Sidecar containers are the containers that should run along with the main container in the pod. This sidecar pattern extends and enhances the functionality of current containers without changing it. Nowadays, We know that we use container technology to wrap all the dependencies for the application to run anywhere. A container does only one thing and does that thing very well.
+    - **Sidecar container**: Sidecar containers are the containers that should run along with the main container in the pod. This sidecar pattern extends and enhances the functionality of current containers without changing them. Nowadays, We know that we use container technology to wrap all the dependencies for the application to run anywhere. A container does only one thing and does that thing very well.
 
 - **Kubectl**: Kubernetes’s CLI, allows you to manage and deploy containers. You can inspect the cluster's resources. Communications with API server
-- **Scheduler**: Scheduling refers to making sure that Pods are matched to Nodes so that Kubelet can run them Watches for newly Pods that have no Node assigned. This component assign pods with nodes
-- **etcd**: Data storage, persistent, consistent and distributed. Is Kubernetes's database and the key value storage where it keeps the complete state of the clusters.
-- **Kube Controller manager**: check several resources, for example the replica sets or the deployments in order to check if for example we have the correct number of pods or nodes running. It controls replication, tokens and account services to the API.
-- **Cloud controller manager**: Is the specific controller for flow controls and applications, i.e: if you have clusters in aws or openstack.
+- **Scheduler**: Scheduling refers to making sure that Pods are matched to Nodes so that Kubelet can run them Watches for new Pods that have no Node assigned. This component assign pods with nodes.
+- **etcd**: Data storage, persistent, consistent, and distributed. Is Kubernetes's database and the key-value storage where it keeps the complete state of the clusters.
+- **Kube Controller manager**: check several resources, for example, the replica sets or the deployments to check if, for example, we have the correct number of pods or nodes running. It controls replication, tokens, and account services to the API.
+- **Cloud controller manager**: Is the specific controller for flow controls and applications, i.e: if you have clusters in AWS or OpenStack.
 
 ### How pods communicate with each other.
 ![](.//media/Screenshot-67.jpg)
@@ -49,7 +49,7 @@ Security tips for Kubernetes
 ## PART 2 - VULNERABILITIES and some fixes.
 
 ### Vulnerabilities - kubernetes secrets
-A Secret is an object that contains a small amount of sensitive data such as a password, a token or a key. Such information might otherwise be put in a Pod specification or in an image. Users can create Secrets and the system also creates some Secrets.The name of a Secret object must be a valid **DNS subdomain name**.
+A Secret is an object that contains a small amount of sensitive data such as a password, a token or a key. Such information might otherwise be put in a Pod specification or in an image. Users can create Secrets and the system also creates some Secrets. The name of a Secret object must be a valid **DNS subdomain name**.
 
 Secrets can be things like:
 - API, SSH Keys.
@@ -105,7 +105,7 @@ spec:
         path: my-group/my-username
 ```
 ### Using Secrets as environment variables
-If you want to use a secret in an environment variable in order to allow to the rest of the pods reference the same secret you could use:
+If you want to use a secret in an environment variable to allow the rest of the pods to reference the same secret, you could use:
 
 In the <podName.yaml> you could add the uncomment lines:
 ```
@@ -196,18 +196,18 @@ docker cp <docket_id>:/etc/<secret_01> <secret_01>
 ```
 
 ## Discover secrets in etcd:
-Remember than etcd is a consistent and highly-available key value store used as Kubernetes backing store for all cluster data. 
-Lets access to the secret in etcd:
+Remember that etcd is a consistent and highly-available key-value store used as Kubernetes backing store for all cluster data. 
+Let's access to the secret in etcd:
 ```
 cat /etc/kubernetes/manifests/kube-apiserver.yaml | grep etcd
 ```
-You will see certs, keys and urls were are located in the FS. Once you get it, you would be able to connect into etcd.
+You will see certs, keys and url's were are located in the FS. Once you get it, you would be able to connect to etcd.
 ```
 ETCDCTL_API=3 etcdctl --cert <path to client.crt> --key <path to client.ket> --cacert <path to CA.cert> endpoint=[<ip:port>] health
 i.e:
 ETCDCTL_API=3 etcdctl --cert /etc/kubernetes/pki/apiserver-etcd-client.crt --key /etc/kubernetes/pki/apiserver-etcd-client.key --cacert /etc/kubernetes/pki/etcd/etcd/ca.cert endpoint=[127.0.0.1:1234] health
 ```
-Once you achieve to establish communication you would be able to get the secrets:
+Once you achieve establish communication you would be able to get the secrets:
 ```
 ETCDCTL_API=3 etcdctl --cert <path to client.crt> --key <path to client.ket> --cacert <path to CA.cert> endpoint=[<ip:port>] get <path/to/secret>
 i.e:
@@ -215,8 +215,8 @@ ETCDCTL_API=3 etcdctl --cert /etc/kubernetes/pki/apiserver-etcd-client.crt --key
 ```
 
 ## Adding encryption to the ETCD
-So, by default all the secrets are in plain text unless you apply an encription layer:
-If the identity provider is empty of the default value = {} so the secrets are in plain text.
+So, by default all the secrets are in plain text unless you apply an encryption layer:
+If the identity provider is empty with the default value = {} so the secrets are in plain text.
 <https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/>
 
 #### Encryption types
@@ -234,7 +234,7 @@ kubectl get secrets --all-namespaces -o json | kubectl replace -f -
 ```
 
 #### How to encrypt the ETCD
-Create a directory in /etc/kubernetes ; in this case you will name it as etcd so you have:
+Create a directory in /etc/kubernetes ; in this case you will name it as etcd, so you have:
 ```
 /etc/kubernetes/etcd
 ```
@@ -264,7 +264,7 @@ echo -n <password> | base64
 You can see how the encryption provider is not setting. 
 
 After that, you have to edit the file /etc/kubernetes/manifest/kube-apiserver.yaml and add the following lines into the sections:
-And add the following line at:
+And add the following line:
 spec:
 ```
   containers:
@@ -328,7 +328,7 @@ If you want to gather information you could use:
 strace uname -r
 ltrace uname -r
 ```
-When the attack achieve discover the kernel version he could run exploiting techniques in order to gather information or escalate into the OS.
+When the attack achieves discovering the kernel version, he could run exploiting techniques to gather information or escalate into the OS.
 
 For secure sandboxes:
 - gVisor:
@@ -340,7 +340,7 @@ For secure sandboxes:
 ## Vulnerabilities - OS
 Is mandatory to keep in mind to define privilege and access control for container / pod:
 - userID's and groupID's.
-- Privileged or unpriviliged escalation runs.
+- Privileged or unprivileged escalation runs.
 - Linux.
 
 More info at:
@@ -404,7 +404,7 @@ kubectl -f <podName>.yaml create
 ```
 
 ### Modify PodSecurityPolicy
-Pod security policies controls the security policies about how a pod has to run.
+Pod security policies control the security policies about how a pod has to run.
 More info at:
 <https://kubernetes.io/docs/concepts/policy/pod-security-policy/>
 
@@ -420,7 +420,7 @@ Inside you add in
 
 
 ## Vulnerabilities - mTLS
-Mutual authentication, two way, pod to pod
+Mutual authentication, two-way, pod to pod.
 
 ![](.//media/Screenshot-165.jpg)
 
@@ -471,21 +471,21 @@ More info at:
 
 ### 3.1 CLUSTER HARDENING -  RBAC
 <https://kubernetes.io/docs/reference/access-authn-authz/rbac/>
-**RBAC** = Role-based access control (RBAC) is a method of regulating access to computer or network resources based on the roles of individual users within your organization.
-RBAC authorization uses the rbac.authorization.k8s.io API group to drive authorization decisions, allowing you to dynamically configure policies through the Kubernetes API.
+**RBAC** = Role-based access control (RBAC) is a method of regulating access to a computer or network resources based on the roles of individual users within your organization.
+RBAC authorization uses the rbac.authorization.k8s.io API group to drive authorization decisions, allowing you to dynamically configure policies through the Kubernetes API
 
 To enable RBAC, start the API server with the --authorization-mode flag set to a comma-separated list that includes RBAC; for example:
 ```
 kube-apiserver --authorization-mode=Example,RBAC --other-options --more-options
 ```
-This is enable by default.
+This is enabled by default.
 RBAC functions:
 - Restrict the access to the resources to users or ServiceAccounts.
 - An RBAC Role or ClusterRole contains rules that represent a set of permissions. 
 - Permissions are purely additive (there are no "deny" rules).
 - RBAC works with Roles and Bindings
 
-Principle of Least Privilege is meaning of only access to data or information when is necessary for a legitimate purpose.
+The principle of Least Privilege is the meaning of only access to data or information when is necessary for a legitimate purpose.
 
 #### Types of resources:
 <https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/>
@@ -510,7 +510,7 @@ You can permanently save the namespace for all subsequent kubectl commands in th
 kubectl config set-context --current --namespace=<insert-namespace-name-here>
 ```
 
-Not All Objects are in a Namespace. Most Kubernetes resources (e.g. pods, services, replication controllers, and others) are in some namespaces. However namespace resources are not themselves in a namespace. And low-level resources, such as nodes and persistentVolumes, are not in any namespace.
+Not All Objects are in a Namespace. Most Kubernetes resources (e.g. pods, services, replication controllers, and others) are in some namespaces. However, namespace resources are not themselves in a namespace. And low-level resources, such as nodes and persistentVolumes, are not in any namespace.
 
 To see which Kubernetes resources are and aren't in a namespace:
 ##### In a namespace
@@ -525,7 +525,7 @@ kubectl api-resources --namespaced=false
 ### Difference between Role and ClusterRole:
 
 ##### Role:
-RBAC allows to set different permissions for the same role with independence of the namespace.
+RBAC allows setting different permissions for the same role with the independence of the namespace.
 Roles example:
 ```
 /api/v1/namespaces/{namespace}/pods/{name}/log
@@ -559,7 +559,7 @@ A ClusterRole can be used to grant the same permissions as a Role. Because Clust
 - non-resource endpoints (like /healthz).
 - namespaced resources (like Pods), across all namespaces.
 
-For example: you can use a ClusterRole to allow a particular user to run:
+For example you can use a ClusterRole to allow a particular user to run:
 ```
 kubectl get pods --all-namespaces
 ```
@@ -632,14 +632,14 @@ So be aware and test always your roles and permissions and specify what is ALLOW
 Users: 
 - Accounts for "persons" who hold a certificate integrated with the Kubernetes Identity Management of cloud providers.
 - There is no Kubernetes user resource.
-- A user have a Key and a Cert.
+- A user has a Key and a Cert.
 
 ##### How it works:
 Openssl --> CSR (CertificateSigningRequest) --> CertificateSignedRequest --> Kubernetes API <-- CA
 
-Be aware of the certificates because there is no way to invalidate them, you have yo wait until the expiration date reaches. So what could you do in case you have to restrict the access?
+Be aware of the certificates because there is no way to invalidate them, you have to wait until the expiration date reaches. So what could you do in case you have to restrict the access?
 
-- Create new CA and reissue all certificates.
+- Create a new CA and reissue all certificates.
 - Remove all RBAC access
 
 #### ServiceAccounts:
@@ -662,7 +662,7 @@ TIPS:
 - Avoid Anonymous access.
 - NodeRestriction; No access from specific nodes to the API.
     - <https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#noderestriction>
-    - Basicaly prevents kubelets from adding/removing/updating labels with a node-restriction.kubernetes.io/ prefix. This label prefix is reserved for administrators to label their Node objects for workload isolation purposes, and kubelets will not be allowed to modify labels with that prefix.
+    - Basically prevents kubelets from adding/removing/updating labels with a node-restriction.kubernetes.io/ prefix. This label prefix is reserved for administrators to label their Node objects for workload isolation purposes, and kubelets will not be allowed to modify labels with that prefix.
     - And also, allows kubelets to add/remove/update these labels and label prefixes.
 - Ensure with labels the secure workload isolation.
 - Avoid specific pods from API access.
@@ -692,6 +692,6 @@ Each 3 months there is a new minor release
     - kube-scheduler.
     - cloud controller manager, if you use one.
 
-- Upgrade the Worker Node components such as: kube-proxy, kubelet.
+- Upgrade the Worker Node components such as kube-proxy, kubelet.
 
 
