@@ -70,7 +70,7 @@ kubernetes.io/basic-auth            | credentials for basic authentication
 kubernetes.io/ssh-auth              | credentials for SSH authentication    
 kubernetes.io/tls                   | data for a TLS client or server       
 bootstrap.kubernetes.io/token       | bootstrap token data                  
-div class="datatable-end"></div>
+<div class="datatable-end"></div>
 
 #### How secrets works:
 ![](.//media/Screenshot-164.jpg)
