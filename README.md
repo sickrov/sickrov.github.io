@@ -228,7 +228,7 @@ If the identity provider is empty with the default value = {} so the secrets are
 |aescbc    |   AES-CBC with PKCS#7 padding|Strongest                 |     Fast|32-byte            |
 |secretbox |         XSalsa20 and Poly1305|Strong                    |   Faster|32-byte            |
 |aesgcm    |     AES-GCM with random nonce|Rotated every 200k writes |  Fastest|16, 24, or 32-byte |
-|kms       | Envelope encryption scheme   |Strongest                 | Fast    |32-bytes           |
+|kms       |    Envelope encryption scheme|Strongest                 |     Fast|32-bytes           |
 
 The secrets will be encrypted with the above algorithms and encoded by base64.
 ```
