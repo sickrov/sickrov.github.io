@@ -222,13 +222,13 @@ If the identity provider is empty with the default value = {} so the secrets are
 <https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/>
 
 #### Encryption types
-| Name | Encryption|Strength | Speed|Key Length | Other Considerations|
-|------- | --------|------- | --------|------- | --------|
-|identity | None|N/A | N/A|N/A | Resources written as-is without encryption. When set as the first provider, the resource will be decrypted as new values are written.|
-|aescbc | AES-CBC with PKCS#7 padding|Strongest | Fast|32-byte | The recommended choice for encryption at rest but may be slightly slower than secretbox.|
-|secretbox | XSalsa20 and Poly1305|Strong | Faster|32-byte | A newer standard and may not be considered acceptable in environments that require high levels of review.|
-|aesgcm | AES-GCM with random nonce|Must be rotated every 200k writes | Fastest|16, 24, or 32-byte | Is not recommended for use except when an automated key rotation scheme is implemented.|
-|kms | Uses envelope encryption scheme: Data is encrypted by data encryption keys (DEKs) using AES-CBC with PKCS#7 padding, DEKs are encrypted by key encryption keys (KEKs) according to configuration in Key Management Service (KMS)| Strongest| Fast|32-bytes | The recommended choice for using a third party tool for key management. Simplifies key rotation, with a new DEK generated for each encryption, and KEK rotation controlled by the user.|
+| Name     |                    Encryption|Strength                  |    Speed|Key Length         |
+|-------   |                      --------|-------                   | --------|-------            |
+|identity  |                          None|N/A                       |      N/A|N/A                |
+|aescbc    |   AES-CBC with PKCS#7 padding|Strongest                 |     Fast|32-byte            |
+|secretbox |         XSalsa20 and Poly1305|Strong                    |   Faster|32-byte            |
+|aesgcm    |     AES-GCM with random nonce|Rotated every 200k writes |  Fastest|16, 24, or 32-byte |
+|kms       | Envelope encryption scheme   |Strongest                 | Fast    |32-bytes           |
 
 The secrets will be encrypted with the above algorithms and encoded by base64.
 ```
