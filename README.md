@@ -4,6 +4,8 @@ Security tips for Kubernetes
 - Part 1 - Architecture
 - Part 2 - Vulnerabilities
 - Part 3 - Hardening
+
+
 Comming soon Kubernetes Pod PrivEsc...
 
 ## PART 1 - ARCHITECTURE
